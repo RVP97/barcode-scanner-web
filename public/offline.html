@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+        <meta name="theme-color"
+              content="#fafafa">
+        <title>Offline - Barcode Scanner</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                background: #fafafa;
+                color: #18181b;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+                text-align: center;
+            }
+
+            .icon {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: #f4f4f5;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+            }
+
+            .icon svg {
+                width: 40px;
+                height: 40px;
+                color: #a1a1aa;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 0.75rem;
+                color: #18181b;
+            }
+
+            p {
+                font-size: 1rem;
+                color: #71717a;
+                max-width: 280px;
+                line-height: 1.5;
+                margin-bottom: 2rem;
+            }
+
+            button {
+                background: #10b981;
+                color: white;
+                border: none;
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+                font-weight: 500;
+                border-radius: 9999px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            button:hover {
+                background: #059669;
+            }
+
+            button:active {
+                transform: scale(0.98);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="24"
+                 height="24"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M12 20h.01" />
+                <path d="M8.5 16.429a5 5 0 0 1 7 0" />
+                <path d="M5 12.859a10 10 0 0 1 5.17-2.69" />
+                <path d="M19 12.859a10 10 0 0 0-2.007-1.523" />
+                <path d="M2 8.82a15 15 0 0 1 4.177-2.643" />
+                <path d="M22 8.82a15 15 0 0 0-11.288-3.764" />
+                <path d="m2 2 20 20" />
+            </svg>
+        </div>
+        <h1>You're Offline</h1>
+        <p>Please check your internet connection and try again.</p>
+        <button onclick="window.location.reload()">Try Again</button>
+    </body>
+
+</html>

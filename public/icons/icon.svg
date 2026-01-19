@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="#0a0a0a"/>
+  <rect x="96" y="96" width="320" height="320" rx="32" fill="#18181b"/>
+  <rect x="144" y="144" width="224" height="224" rx="16" fill="#27272a"/>
+  
+  <!-- QR Code pattern -->
+  <rect x="176" y="176" width="48" height="48" rx="4" fill="#10b981"/>
+  <rect x="240" y="176" width="32" height="32" rx="4" fill="#10b981"/>
+  <rect x="288" y="176" width="48" height="48" rx="4" fill="#10b981"/>
+  
+  <rect x="176" y="240" width="32" height="32" rx="4" fill="#10b981"/>
+  <rect x="256" y="240" width="16" height="16" rx="2" fill="#10b981"/>
+  <rect x="288" y="256" width="32" height="32" rx="4" fill="#10b981"/>
+  
+  <rect x="176" y="288" width="48" height="48" rx="4" fill="#10b981"/>
+  <rect x="240" y="304" width="32" height="32" rx="4" fill="#10b981"/>
+  <rect x="304" y="304" width="32" height="32" rx="4" fill="#10b981"/>
+  
+  <!-- Scanner corners -->
+  <path d="M128 176 L128 144 Q128 128 144 128 L176 128" stroke="#10b981" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M336 128 L368 128 Q384 128 384 144 L384 176" stroke="#10b981" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M384 336 L384 368 Q384 384 368 384 L336 384" stroke="#10b981" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M176 384 L144 384 Q128 384 128 368 L128 336" stroke="#10b981" stroke-width="8" stroke-linecap="round" fill="none"/>
+  
+  <!-- Scan line -->
+  <rect x="144" y="252" width="224" height="8" rx="4" fill="#10b981" opacity="0.6"/>
+</svg>
