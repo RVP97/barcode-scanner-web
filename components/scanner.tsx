@@ -1,6 +1,6 @@
 "use client";
 
-import { Html5Qrcode } from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode";
 import { Camera, CameraOff, Loader2, ScanBarcode } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
@@ -23,15 +23,49 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
     setError(null);
 
     try {
-      const scanner = new Html5Qrcode("scanner-container");
+      const scanner = new Html5Qrcode("scanner-container", {
+        verbose: false,
+        formatsToSupport: [
+          Html5QrcodeSupportedFormats.QR_CODE,
+          Html5QrcodeSupportedFormats.AZTEC,
+          Html5QrcodeSupportedFormats.CODABAR,
+          Html5QrcodeSupportedFormats.CODE_39,
+          Html5QrcodeSupportedFormats.CODE_93,
+          Html5QrcodeSupportedFormats.CODE_128,
+          Html5QrcodeSupportedFormats.DATA_MATRIX,
+          Html5QrcodeSupportedFormats.MAXICODE,
+          Html5QrcodeSupportedFormats.ITF,
+          Html5QrcodeSupportedFormats.EAN_13,
+          Html5QrcodeSupportedFormats.EAN_8,
+          Html5QrcodeSupportedFormats.PDF_417,
+          Html5QrcodeSupportedFormats.RSS_14,
+          Html5QrcodeSupportedFormats.RSS_EXPANDED,
+          Html5QrcodeSupportedFormats.UPC_A,
+          Html5QrcodeSupportedFormats.UPC_E,
+          Html5QrcodeSupportedFormats.UPC_EAN_EXTENSION,
+        ],
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true,
+        },
+      });
       scannerRef.current = scanner;
 
+      // Get container dimensions for responsive qrbox
+      const containerWidth = containerRef.current.clientWidth;
+      const containerHeight = containerRef.current.clientHeight;
+      const qrboxSize = Math.min(containerWidth, containerHeight) * 0.85;
+
       await scanner.start(
-        { facingMode: "environment" },
         {
-          fps: 10,
-          qrbox: { width: 280, height: 280 },
+          facingMode: "environment",
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+        },
+        {
+          fps: 30,
+          qrbox: { width: qrboxSize, height: qrboxSize },
           aspectRatio: 1,
+          disableFlip: false,
         },
         (decodedText, result) => {
           const format = result.result.format?.formatName || "UNKNOWN";
@@ -39,15 +73,19 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
         },
         () => {
           // Ignore scan errors (no code found)
-        }
+        },
       );
 
       setIsScanning(true);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to start camera";
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to start camera";
       if (errorMessage.includes("Permission")) {
         setError("Camera permission denied. Please allow camera access.");
-      } else if (errorMessage.includes("NotFoundError") || errorMessage.includes("No camera")) {
+      } else if (
+        errorMessage.includes("NotFoundError") ||
+        errorMessage.includes("No camera")
+      ) {
         setError("No camera found on this device.");
       } else {
         setError(errorMessage);
@@ -88,20 +126,20 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
             </p>
           </div>
         )}
-        
+
         {isInitializing && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-zinc-100 z-10">
             <Loader2 className="w-10 h-10 text-zinc-900 animate-spin" />
             <p className="text-zinc-500 text-sm">Starting camera...</p>
           </div>
         )}
-        
-        <div 
-          id="scanner-container" 
+
+        <div
+          id="scanner-container"
           ref={containerRef}
           className="w-full h-full [&_video]:object-cover [&_video]:w-full [&_video]:h-full"
         />
-        
+
         {isScanning && (
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -128,8 +166,8 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
         disabled={isInitializing}
         size="lg"
         className={`rounded-full px-8 py-6 text-base font-medium transition-all ${
-          isScanning 
-            ? "bg-red-500 hover:bg-red-600 text-white" 
+          isScanning
+            ? "bg-red-500 hover:bg-red-600 text-white"
             : "bg-zinc-900 hover:bg-zinc-800 text-white"
         }`}
       >
