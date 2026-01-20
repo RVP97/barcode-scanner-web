@@ -47,10 +47,10 @@ export default function HomePage() {
       </header>
 
       <main
-        className="flex-1 flex flex-col items-center justify-start px-4 pt-6 pb-24 overflow-hidden"
-        style={{ overscrollBehavior: "none" }}
+        className="flex-1 flex flex-col items-center justify-start px-4 pt-6 pb-24 overflow-hidden min-h-0 max-h-full"
+        style={{ overscrollBehavior: "none", overscrollBehaviorY: "none" }}
       >
-        <div className="w-full max-w-sm space-y-6">
+        <div className="w-full max-w-sm space-y-6 min-h-0 shrink">
           <div className="text-center space-y-2 mt-8">
             <h2 className="text-2xl font-bold text-zinc-900">Scan a Code</h2>
             <p className="text-zinc-500 text-sm">
