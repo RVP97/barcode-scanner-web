@@ -37,7 +37,7 @@ export default function HomePage() {
         touchAction: "manipulation",
       }}
     >
-      <header className="shrink-0 z-30 bg-white/90 backdrop-blur-xl border-b border-zinc-200">
+      <header className="sticky top-0 shrink-0 z-30 bg-white/90 backdrop-blur-xl border-b border-zinc-200">
         <div className="flex items-center justify-center gap-3 h-12 px-4">
           <div className="w-8 h-8 rounded-xl bg-zinc-900 flex items-center justify-center">
             <ScanBarcode className="w-4 h-4 text-white" />
@@ -47,10 +47,14 @@ export default function HomePage() {
       </header>
 
       <main
-        className="flex-1 flex flex-col items-center justify-start px-4 pt-6 pb-24 overflow-hidden min-h-0 max-h-full"
-        style={{ overscrollBehavior: "none", overscrollBehaviorY: "none" }}
+        className="flex-1 flex flex-col items-center justify-start px-4 pt-6 pb-20 overflow-hidden min-h-0"
+        style={{
+          overscrollBehavior: "none",
+          overscrollBehaviorY: "none",
+          paddingBottom: "calc(4rem + env(safe-area-inset-bottom, 0px))",
+        }}
       >
-        <div className="w-full max-w-sm space-y-6 min-h-0 shrink">
+        <div className="w-full max-w-sm space-y-6 min-h-0 shrink overflow-hidden">
           <div className="text-center space-y-2 mt-8">
             <h2 className="text-2xl font-bold text-zinc-900">Scan a Code</h2>
             <p className="text-zinc-500 text-sm">
