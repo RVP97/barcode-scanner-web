@@ -19,7 +19,14 @@ export function useHistory() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        setHistory(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        // Limit to 50 items on load (keep most recent)
+        const limited = Array.isArray(parsed) ? parsed.slice(0, 50) : [];
+        setHistory(limited);
+        // Update storage if we trimmed the array
+        if (limited.length < parsed.length) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(limited));
+        }
       } catch {
         setHistory([]);
       }
@@ -31,15 +38,16 @@ export function useHistory() {
     setHistory((prev) => {
       // Remove existing item with same value if it exists
       const filtered = prev.filter((item) => item.value !== value);
-      
+
       const newItem: HistoryItem = {
         id: crypto.randomUUID(),
         value,
         type,
         timestamp: Date.now(),
       };
-      
-      const updated = [newItem, ...filtered];
+
+      // Add new item and limit to 50 items (remove oldest if exceeds)
+      const updated = [newItem, ...filtered].slice(0, 50);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       return updated;
     });
