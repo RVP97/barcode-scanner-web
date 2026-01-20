@@ -69,6 +69,7 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
               <QrScanner
                 onScan={handleScan}
                 onError={handleError}
+                sound={false}
                 constraints={{
                   facingMode: "environment",
                   width: { ideal: 1920, min: 1280 },
