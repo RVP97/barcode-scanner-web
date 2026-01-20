@@ -128,12 +128,14 @@
   }
   html {
     overscroll-behavior: none;
+    overscroll-behavior-y: none;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
   }
   body {
     @apply bg-background text-foreground;
     overscroll-behavior: none;
+    overscroll-behavior-y: none;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     position: relative;
