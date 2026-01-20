@@ -47,7 +47,7 @@ export default function HomePage() {
       </header>
 
       <main
-        className="flex-1 flex flex-col items-center justify-center px-4 py-8 pb-24 overflow-hidden"
+        className="flex-1 flex flex-col items-center justify-start px-4 pt-6 pb-24 overflow-hidden"
         style={{ overscrollBehavior: "none" }}
       >
         <div className="w-full max-w-sm space-y-6">
