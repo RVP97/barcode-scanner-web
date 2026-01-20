@@ -21,9 +21,15 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
   const handleScan = useCallback(
     (detectedCodes: DetectedCode[]) => {
       if (detectedCodes.length > 0) {
-        const code = detectedCodes[0];
-        const format = code.format || "UNKNOWN";
-        onScanSuccess(code.rawValue, format);
+        // Try all detected codes, not just the first one
+        // This helps with partial or distorted barcodes
+        for (const code of detectedCodes) {
+          if (code.rawValue && code.rawValue.trim().length > 0) {
+            const format = code.format || "UNKNOWN";
+            onScanSuccess(code.rawValue, format);
+            break; // Only process the first valid code
+          }
+        }
       }
     },
     [onScanSuccess],
@@ -63,25 +69,41 @@ export function Scanner({ onScanSuccess }: ScannerProps) {
               <QrScanner
                 onScan={handleScan}
                 onError={handleError}
-                constraints={{ facingMode: "environment" }}
+                constraints={{
+                  facingMode: "environment",
+                  width: { ideal: 1920, min: 1280 },
+                  height: { ideal: 1080, min: 720 },
+                }}
                 formats={[
+                  // 2D Barcodes
                   "qr_code",
                   "aztec",
-                  "codabar",
+                  "data_matrix",
+                  "pdf417",
+                  "maxi_code",
+                  "micro_qr_code",
+                  "rm_qr_code",
+                  // 1D Barcodes
+                  "code_128",
                   "code_39",
                   "code_93",
-                  "code_128",
-                  "data_matrix",
-                  "ean_8",
+                  "codabar",
                   "ean_13",
+                  "ean_8",
                   "itf",
-                  "pdf417",
-                  "databar",
-                  "databar_expanded",
                   "upc_a",
                   "upc_e",
+                  "databar",
+                  "databar_expanded",
+                  "databar_limited",
+                  "dx_film_edge",
                 ]}
-                scanDelay={300}
+                scanDelay={50}
+                allowMultiple={false}
+                components={{
+                  finder: true,
+                  torch: true,
+                }}
               />
             </div>
 
